@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+        <h2>Create a new auction</h2>
+<form method="POST">
+          {% csrf_token %}
+          {{ auction_form.as_p }}
+    {% if error_message %}
+    <p> {{ error_message }}</p>
+    {% endif %}
+          <input type="submit" name="" value="Register">
+        </form>
+
+    </div>
+  </div>
+{% endblock %}

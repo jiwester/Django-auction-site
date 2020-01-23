@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block body_block %}
+<div class="container">
+    <div class="jumbotron">
+
+    <h1>{% trans "Auction details" %}</h1>
+    <h2>{% trans "Created by user: " %}{{ requested_auction.seller }}</h2>
+    <h2>{% trans "Title: " %}{{ requested_auction.title }}</h2>
+    <h2>{% trans "Desription: " %}{{ requested_auction.description }}</h2>
+    <h2>{% trans "Starting price: " %}{{ requested_auction.minimum_price }} {{ symbol }}</h2>
+    <h2>{% trans "End date:  " %}{{ requested_auction.deadline_date }}</h2>
+    {% if bids %}
+        <h1>Current bid: {{ requested_auction.highbid }}, Bidder: {{ requested_auction.highbidder }}</h1>
+    {% endif %}
+
+    {% if requested_auction.status == "active" %}
+        {% if request.user.get_username == "admin" %}
+            <a href="/auction/ban/{{ requested_auction.id }}">{% trans "Ban"%}</a>
+            {% endif %}
+        {% if request.user == requested_auction.seller %}
+            <a href="/auction/edit/{{ requested_auction.id }}"> {% trans "Edit description"%} </a>
+
+        {% elif request.user.is_authenticated and request.user != requested_auction.seller %}
+            <a href="/auction/bid/{{ requested_auction.id }}"> {% trans "Bid on auction"%} </a>
+
+            {% else %}
+            <h3>{% trans "Log in to place a bid. Note that you cannot place bids on your own auctions." %}</h3>
+        {% endif %}
+
+    {% elif requested_auction.status == "banned" %}
+        <h1>{% trans "Auction has been banned" %}</h1>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

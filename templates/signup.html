@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+
+        <h1>{% trans "Register: " %}</h1>
+<form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          {{ user_form.as_p }}
+          <input type="submit" name="" value="Create">
+        </form>
+
+    </div>
+  </div>
+{% endblock %}

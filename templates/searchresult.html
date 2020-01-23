@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block body_block %}
+
+  <div class="container">
+    <div class="jumbotron">
+    <h2>{% trans "Search results: " %}</h2>
+        {% if auction_list %}
+            <ul>
+                {% for auction in auction_list %}
+                <li><a href="/auction/{{ auction.id }}/">{{ auction.title }} -- {{ auction.minimum_price }}{{ symbol }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>{% trans "No auctions found" %}</h3>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}

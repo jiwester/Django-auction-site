@@ -1,0 +1,22 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Login here :</h1>
+<form method="post" action="{% url 'signin' %}">
+          {% csrf_token %}
+          <label for="username">Username:</label>
+    <label>
+        <input type="text" name="username" placeholder="Username">
+    </label>
+    <label for="password">Password:</label>
+    <label>
+        <input type="password" name="password" placeholder="Password">
+    </label>
+    <input type="submit" name="" value="Login">
+</form>
+</div>
+  </div>
+{% endblock %}

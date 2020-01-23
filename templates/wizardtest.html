@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block body_block %}
+<h2> Confirm auction </h2>
+<div class="container">
+    <div class="jumbotron">
+    <form method="post" action="{% url 'auction:confirm' %}">
+        {% csrf_token %}
+         {{ confirm_form.as_p }}
+        <input type="hidden" name="title" value="{{ title }}">
+        <input type="hidden" name="description" value="{{ description }}">
+        <input type="hidden" name="minimum_price" value={{ minimum_price }}>
+        <input type="hidden" name="deadline_date" value="{{ deadline_date }}">
+        <input type="submit" value={% trans "Submit" %}>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

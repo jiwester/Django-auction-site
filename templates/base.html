@@ -1,0 +1,64 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Base</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <ul class="nav navbar-nav">
+{# Django index Link / Admin Link / Register Link#}
+          <li><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
+          <li><a class="navbar-link" href="{% url 'admin:index' %}">Admin</a></li>
+          <li><a class="navbar-link" href="{% url 'signup' %}">Register</a></li>
+          
+          {% if user.is_authenticated %}
+              <li><a class="navbar-link" href="{% url 'user:editprofile' %}">Edit account</a></li>
+              <li><a class="navbar-link" href="{% url 'auction:create' %}">Create auction</a></li>
+              <li><a href="{% url 'signout' %}">Logout</a></li>
+          {% else %}
+            <li><a class="navbar-link" href="{% url 'signin' %}">Login</a></li>
+          {% endif %}
+            <br>
+            <li><a href="{% url 'changeLanguage' lang_code='sv' %}"> Swedish </a></li>
+            <li><a href="{% url 'changeLanguage' lang_code='en' %}"> English </a></li>
+
+
+            {#        <form action="/changeLanguage/ {{ lang_code }} " method="get">{% csrf_token %}#}
+{##}
+{#        <input name="next" type="hidden" value="{{ redirect_to }}" >#}
+{#            <label>#}
+{#                <select name="language" id="">#}
+{#                    {% get_current_language as LANGUAGE_CODE %}#}
+{#                    {% get_available_languages as LANGUAGES %}#}
+{#                    {% get_language_info_list for LANGUAGES as languages %}#}
+{#                    {% for language in languages %}#}
+{#                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>#}
+{#                            {{ language.name_local }} ({{ language.code }})#}
+{#                        </option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{#            </label>#}
+{#            <input type="submit" value="Go" />#}
+{#</form>#}
+    </ul>
+      </div>
+    </nav>
+    <div class="container">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li style="font-size:20px" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% block body_block %}
+    {% endblock %}
+    </div>
+  </body>
+</html>

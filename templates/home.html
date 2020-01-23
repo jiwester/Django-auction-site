@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>{% trans "Welcome to YAAS!" %}</h1>
+    {% if user.is_authenticated %}
+        <h2>{% trans "Hello" %} {{ user.username }}</h2>
+    {% else %}
+        <h2>Register or Login </h2>
+    {% endif %}
+  {% if all_auctions %}
+      <h3>----------------------------------------</h3>
+      <h2>{% trans "Auctions (Title -- Price):" %}</h2>
+
+      <ul>
+      {% for auction in all_auctions %}
+        <li><a href="/auction/{{ auction.id }}/">{{ auction.title }} -- {{ auction.minimum_price }}{{ symbol }}</a></li>
+                {% endfor %}
+            </ul>
+
+    {% else %}
+            <h3>{% trans "There are no auctions at this moment" %}</h3>
+    {% endif %}
+
+  <form action= "{% url "auction:search" %}" method="get">
+      <label>
+          <input name="term" type="text" placeholder="Search...">
+      </label>
+      <button type="submit">{% trans "Search" %}</button>
+  </form>
+
+  </div>
+</div>
+{% endblock %}

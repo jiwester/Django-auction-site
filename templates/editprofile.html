@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block body_block %}
+<strong>{{ msg }}</strong>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Edit profile</h1>
+            <h2>{% trans "Current email: " %}{{ request.user.email }}</h2>
+            <form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          {{ edit_form.as_p }}
+          <input type="submit" name="" value="Submit">
+        </form>
+{#          <form action="" method="post">#}
+{#                {% csrf_token %}#}
+{#                <br>#}
+{##}
+{#                <label for="password">New password:</label>#}
+{#                <input type="password" name="password" value="" id="password">#}
+{#                <label for="email">New email:</label>#}
+{#                <input type="email" name="email" value="" id="email">#}
+{##}
+{#                <input type="submit" value="Submit">#}
+{#                <input type="hidden" name="next" value="login">#}
+{#            </form>#}
+        </div>
+    </div>
+
+{% endblock %}
+
+{#{% extends "base.html" %}#}
+{#{% load staticfiles %}#}
+{#{% block body_block %}#}
+{#  <div class="container">#}
+{#    <div class="jumbotron">#}
+{#      {% if registered %}#}
+{#        <h1>Thank you for registering!</h1>#}
+{#      {% else %}#}
+{#        <h1>Register Here</h1>#}
+{#        <h3>Just fill out the form.</h3>#}
+{#<form enctype="multipart/form-data" method="POST">#}
+{#          {% csrf_token %}#}
+{#          {{ user_form.as_p }}#}
+{#          <input type="submit" name="" value="Register">#}
+{#        </form>#}
+{##}
+{#      {% endif %}#}
+{#    </div>#}
+{#  </div>#}
+{#{% endblock %}#}
